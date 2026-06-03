@@ -1,0 +1,53 @@
+﻿--Hãy thực hiện các câu lệnh sau bằng ngôn ngữ DDL:
+--1. Tạo Database QUANLYDONVI_B2_MSSV (MSSV thay bằng mã số của Sinh viên).
+CREATE DATABASE QUANVIDONVI_B2_2574802010111
+GO 
+USE QUANVIDONVI_B2_2574802010111
+
+--2. Tạo 2 Table DONVI và NHANVIEN theo kiểu dữ liệu trên.
+-- BẢNG DONVI
+CREATE TABLE DONVI (
+	MADV INT NOT NULL,
+	TENDV NVARCHAR(50) NOT NULL
+)
+-- BẢNG NHANVIEN
+CREATE TABLE NHANVIEN (
+	MANV VARCHAR(5) NOT NULL,
+	HOTEN NVARCHAR(50) NOT NULL,
+	NGAYSINH DATE NULL,
+	DIACHI NVARCHAR(50) NOT NULL,
+	THAMNIEN INT NULL,
+	MADV INT NOT NULL
+)
+
+--3. Tạo tất cả các khóa chính có thể có bằng câu lệnh Alter.
+-- TẠO KHÓA CHÍNH CỦA BẢNG DONVI
+ALTER TABLE DONVI
+ADD CONSTRAINT PK_DONVI
+PRIMARY KEY (MADV)
+-- TẠO KHÓA CHÍNH CỦA BẢNG NHANVIEN
+ALTER TABLE NHANVIEN
+ADD CONSTRAINT PK_NHANVIEN
+PRIMARY KEY (MANV)
+
+--4. Tạo tất cả các khóa ngoại có thể có bằng câu lệnh Alter.
+ALTER TABLE NHANVIEN
+ADD CONSTRAINT FK_NHANVIEN_MADV
+FOREIGN KEY (MADV) REFERENCES DONVI(MADV)
+
+--5. Hãy thay đổi định nghĩa của thuộc tính DIACHI (địa chỉ) của bảng NHANVIEN như sau: Column Name: DIACHI; Data type: NVARCHAR(200); Allow Nulls: NULL
+ALTER TABLE NHANVIEN
+ALTER COLUMN DIACHI NVARCHAR(200) NULL
+
+--6. Hãy Xóa cột NGAYSINH (ngày sinh) khỏi bảng NHANVIEN.
+ALTER TABLE NHANVIEN
+DROP COLUMN NGAYSINH
+
+--7. Thêm vào bảng NHANVIEN một cột nữa được miêu tả như sau: Column Name: LUONG; Data type: FLOAT; Allow Nulls: NULL
+ALTER TABLE NHANVIEN
+ADD LUONG FLOAT NULL
+
+--8. Thêm một ràng buộc kiểm tra TENDV (tên đơn vị) trong bảng DONVI phải là duy nhất không trùng.
+ALTER TABLE DONVI
+ADD CONSTRAINT UQ_DONVI
+UNIQUE (TENDV)
