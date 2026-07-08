@@ -32,3 +32,5 @@ FROM [xomdata_dataset].[coffee_shop].[transactions] GROUP BY product_category OR
 -- Q5: Em cho anh đơn giá trung bình của từng category để đánh giá category nào high-ticket.
 SELECT product_category, AVG(unit_price) 
 AS gia_trung_binh FROM [xomdata_dataset].[coffee_shop].[transactions] GROUP BY product_category;
+
+-- Q6: Chị cần số giao dịch theo giờ trong ngày (24 điểm) để chọn thời điểm chạy promo happy hour. Store nào peak lúc mấy giờ?
